@@ -6,8 +6,7 @@ export const fetchLorem = createAsyncThunk(
     try {
       const response = await fetch("https://api.lorem.com/ipsum");
       if (!response.ok) return rejectWithValue(`HTTP Error ${response.status}`);
-      const data = await response.json();
-      return data;
+      return await response.json();
     } catch (error) {
       return rejectWithValue(error.message);
     }
@@ -19,7 +18,9 @@ const loremSlice = createSlice({
   initialState: { title: "", body: "", loading: false, error: null },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchLorem.pending, (state) => { state.loading = true; })
+      .addCase(fetchLorem.pending, (state) => {
+        state.loading = true;
+      })
       .addCase(fetchLorem.fulfilled, (state, action) => {
         state.loading = false;
         state.title = action.payload.title;
@@ -27,7 +28,7 @@ const loremSlice = createSlice({
       })
       .addCase(fetchLorem.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || "Failed to fetch";
+        state.error = action.payload || "Fetch failed";
       });
   }
 });
