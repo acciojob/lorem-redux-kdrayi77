@@ -51,4 +51,8 @@
     "webpack-dev-server": "^3.11.0",
     "xml-js": "^1.6.11"
   }
+  "scripts": {
+  "start": "set NODE_OPTIONS=--openssl-legacy-provider && webpack serve --mode development --open",
+  "build": "set NODE_OPTIONS=--openssl-legacy-provider && webpack --mode production"
+}
 } 
