@@ -11,17 +11,11 @@ const App = () => {
   }, [dispatch]);
 
   return (
-    <div style={{ padding: "20px", fontFamily: "Arial, sans-serif" }}>
+    <div style={{ padding: "20px", fontFamily: "Arial" }}>
       <h2>Lorem Redux Output</h2>
 
       {loading && <p>Loading...</p>}
-
-      {error && (
-        <div style={{ color: "red" }}>
-          <p>Error: {error}</p>
-          <button onClick={() => dispatch(fetchLorem())}>Retry</button>
-        </div>
-      )}
+      {error && <p style={{ color: "red" }}>Error: {error}</p>}
 
       {!loading && !error && (title || body) && (
         <p data-testid="lorem-content">
