@@ -1,31 +1,14 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchLorem } from "./redux/loremSlice";
+import LoremFetcher from "./LoremFetcher";
+import React from "react";
+import './../styles/App.css';
 
 const App = () => {
-  const dispatch = useDispatch();
-  const { title, body, loading, error } = useSelector((state) => state.lorem);
-
-  useEffect(() => {
-    dispatch(fetchLorem());
-  }, [dispatch]);
-
   return (
-    <div style={{ padding: "20px", fontFamily: "Arial" }}>
-      <h2>Lorem Redux Output</h2>
-
-      {loading && <p>Loading...</p>}
-      {error && <p style={{ color: "red" }}>Error: {error}</p>}
-
-      {!loading && !error && (title || body) && (
-        <p data-testid="lorem-content">
-          {title && <strong>{title}</strong>}
-          {title && body && <br />}
-          {body}
-        </p>
-      )}
+    <div>
+      <h1>Redux Lorem Ipsum Viewer</h1>
+      <LoremFetcher />
     </div>
-  );
-};
+  )
+}
 
-export default App;
+export default App
