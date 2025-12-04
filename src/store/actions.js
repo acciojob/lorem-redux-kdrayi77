@@ -1,24 +1,34 @@
-export const FETCH_LOREM_REQUEST = "FETCH_LOREM_REQUEST";
-export const FETCH_LOREM_SUCCESS = "FETCH_LOREM_SUCCESS";
-export const FETCH_LOREM_FAILURE = "FETCH_LOREM_FAILURE";
+// src/store/actions.js
+export const FETCH_START = "FETCH_START";
+export const FETCH_SUCCESS = "FETCH_SUCCESS";
+export const FETCH_ERROR = "FETCH_ERROR";
 
-export const fetchLorem = () => {
-  return async (dispatch) => {
-    dispatch({ type: FETCH_LOREM_REQUEST });
+export const fetchLoremStart = () => ({
+  type: FETCH_START,
+});
 
-    try {
-      const response = await fetch("https://api.lorem.com/ipsum");
-      const data = await response.json();
+export const fetchLoremSuccess = (data) => ({
+  type: FETCH_SUCCESS,
+  payload: data,
+});
 
-      dispatch({
-        type: FETCH_LOREM_SUCCESS,
-        payload: data,
-      });
-    } catch (error) {
-      dispatch({
-        type: FETCH_LOREM_FAILURE,
-        error: error.message,
-      });
-    }
-  };
+export const fetchLoremError = (error) => ({
+  type: FETCH_ERROR,
+  payload: error,
+});
+
+// Mock thunk — no real API call
+export const fetchLorem = () => async (dispatch) => {
+  dispatch(fetchLoremStart());
+
+  // small delay to show "Loading..."
+  await new Promise((res) => setTimeout(res, 600));
+
+  // fake payload that matches the required shape
+  dispatch(
+    fetchLoremSuccess({
+      title: "Lorem Ipsum",
+      body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus.",
+    })
+  );
 };
